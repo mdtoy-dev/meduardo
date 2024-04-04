@@ -37,7 +37,7 @@ const Content = ({ courseName, unitName, lessonNames, contents }: Props) => {
         </h1>
         <div />
       </div>
-      <div className="flex w-full">
+      <div className="flex w-full flex-wrap">
         {lessonNames.map((lesson, index) => (
           <Button
             variant={topic === lesson ? "super" : "default"}
@@ -48,9 +48,9 @@ const Content = ({ courseName, unitName, lessonNames, contents }: Props) => {
           </Button>
         ))}
       </div>
-      <div className="lg:px-[256px] h-full pt-[50px] lg:pt-0">
-        <div className="max-w-[1056px] mx-auto pt-6 h-full">
-          <p>{content}</p>
+      <div className="lg:px-[256px] h-full pt-[25px] lg:pt-0">
+        <div className="max-w-[1056px] mx-auto lg:pt-6 h-full">
+          <p className="px-2">{content}</p>
         </div>
       </div>
     </>
