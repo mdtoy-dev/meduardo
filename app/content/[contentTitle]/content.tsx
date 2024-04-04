@@ -9,12 +9,12 @@ type Props = {
   courseName: string | undefined
   unitName: string | undefined
   lessonNames: string[]
-  contents: (string)[]
+  contents: (string | null)[]
 }
 
 const Content = ({ courseName, unitName, lessonNames, contents }: Props) => {
   const [topic, setTopic] = useState<string>(lessonNames[0])
-  const [lessonContent, setLessonContent] = useState<string>(contents[0])
+  const [lessonContent, setLessonContent] = useState<string | null>(contents[0])
 
   const handleClick = (index: number) => {
     setTopic(lessonNames[index])
@@ -48,7 +48,7 @@ const Content = ({ courseName, unitName, lessonNames, contents }: Props) => {
       </div>
       <div className="lg:px-[256px] h-full pt-[25px] lg:pt-0">
         <div className="max-w-[1056px] mx-auto lg:pt-6 h-full">
-          {<div dangerouslySetInnerHTML={{ __html: lessonContent }} /> ||
+          {<div dangerouslySetInnerHTML={{ __html: lessonContent! }} /> ||
             "Select a lesson to view its content."}
         </div>
       </div>
