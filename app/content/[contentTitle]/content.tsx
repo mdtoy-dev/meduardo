@@ -22,7 +22,7 @@ const Content = ({ courseName, unitName, lessonNames, contents }: Props) => {
   }
 
   return (
-    <>
+    <div>
       <div className="sticky top-0 bg-white pb-3 pt-3 flex items-center justify-between border-b-2 text-neutral-700 lg:z-50">
         <Link href="/learn">
           <Button variant="ghost" size="sm">
@@ -46,13 +46,23 @@ const Content = ({ courseName, unitName, lessonNames, contents }: Props) => {
           </Button>
         ))}
       </div>
+      <style jsx global>{`
+        .lesson-content .bg-card:hover {
+          --tw-bg-opacity: 1;
+          background-color: rgb(199 210 254 / var(--tw-bg-opacity));
+        }
+      `}</style>
       <div className="lg:px-[256px] h-full pt-[25px] lg:pt-0">
         <div className="max-w-[1056px] mx-auto lg:pt-6 h-full">
-          {<div dangerouslySetInnerHTML={{ __html: lessonContent! }} /> ||
-            "Select a lesson to view its content."}
+          {(
+            <div
+              className="lesson-content"
+              dangerouslySetInnerHTML={{ __html: lessonContent! }}
+            />
+          ) || "Select a lesson to view its content."}
         </div>
       </div>
-    </>
+    </div>
   )
 }
 
