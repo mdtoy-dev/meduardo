@@ -1,7 +1,6 @@
-'use client'
+"use client"
 
 import { Button } from "@/components/ui/button"
-import { lessons } from "@/db/schema"
 import { ArrowLeft } from "lucide-react"
 import Link from "next/link"
 import { useState } from "react"
@@ -10,17 +9,16 @@ type Props = {
   courseName: string | undefined
   unitName: string | undefined
   lessonNames: string[]
-  contents: (string | null)[]
+  contents: (string)[]
 }
 
 const Content = ({ courseName, unitName, lessonNames, contents }: Props) => {
   const [topic, setTopic] = useState<string>(lessonNames[0])
-  const [content, setContent] = useState<string | null>(contents[0])
-
+  const [lessonContent, setLessonContent] = useState<string>(contents[0])
 
   const handleClick = (index: number) => {
     setTopic(lessonNames[index])
-    setContent(contents[index])
+    setLessonContent(contents[index])
   }
 
   return (
@@ -50,10 +48,12 @@ const Content = ({ courseName, unitName, lessonNames, contents }: Props) => {
       </div>
       <div className="lg:px-[256px] h-full pt-[25px] lg:pt-0">
         <div className="max-w-[1056px] mx-auto lg:pt-6 h-full">
-          <p className="px-2">{content}</p>
+          {<div dangerouslySetInnerHTML={{ __html: lessonContent }} /> ||
+            "Select a lesson to view its content."}
         </div>
       </div>
     </>
   )
 }
+
 export default Content
