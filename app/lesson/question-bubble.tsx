@@ -12,14 +12,14 @@ export const QuestionBubble = ({ question }: Props) => {
         <div className="absolute -right-3 top-1/2 w-0 h-0 border-x-8 border-x-transparent border-t-8 transform -translate-y-1/2 -rotate-90" />
       </div>
       <Image
-        src="meduardo-logo.svg"
+        src="/meduardo-logo.svg"
         alt="Meduardo"
         height={200}
         width={200}
         className="hidden lg:block"
       />
       <Image
-        src="meduardo-logo.svg"
+        src="/meduardo-logo.svg"
         alt="Meduardo"
         height={120}
         width={120}
