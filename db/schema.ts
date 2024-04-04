@@ -44,6 +44,7 @@ export const lessons = pgTable("lessons", {
   unitId: integer("unit_id")
     .references(() => units.id, { onDelete: "cascade" })
     .notNull(),
+  content: text('content'),
   order: integer("order").notNull(),
 })
 
@@ -83,6 +84,7 @@ export const challengeOptions = pgTable("challenge_options ", {
     .notNull(),
   text: text("text").notNull(),
   correct: boolean("correct").notNull(),
+  explanation: text('explanation').notNull(),
   imageSrc: text("image_src"),
   audioSrc: text("audio_src"),
 })

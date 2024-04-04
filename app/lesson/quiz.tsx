@@ -16,6 +16,7 @@ import { useRouter } from "next/navigation"
 import Confetti from "react-confetti"
 import { useEggsModal } from "@/store/use-eggs-modal"
 import { usePracticeModal } from "@/store/use-practice-modal"
+import { cn } from "@/lib/utils"
 
 type Props = {
   initalLessonId: number
@@ -25,9 +26,11 @@ type Props = {
     completed: boolean
     challengeOptions: (typeof challengeOptions.$inferSelect)[]
   })[]
-  userSubscription: typeof userSubscription.$inferSelect & {
-    isActive: boolean
-  } | null
+  userSubscription:
+    | (typeof userSubscription.$inferSelect & {
+        isActive: boolean
+      })
+    | null
 }
 
 export const Quiz = ({
@@ -41,7 +44,7 @@ export const Quiz = ({
   const { open: openPracticeModal } = usePracticeModal()
 
   useMount(() => {
-    if(initialPercentage === 100) {
+    if (initialPercentage === 100) {
       openPracticeModal()
     }
   })
@@ -223,6 +226,28 @@ export const Quiz = ({
                 type={challenge.type}
               />
             </div>
+            {selectedOption && status !== "none" && (
+              <div
+                className={cn(
+                  "h-full border-2 rounded-xl hover:bg-black/5 p-4 lg:p-6 border-b-2",
+                    status === "correct" &&
+                    "border-green-300 bg-green-100",
+                    status === "wrong" &&
+                    "border-rose-300 bg-rose-100",
+                )}
+              >
+                <p
+                  className={cn(
+                    "text-muted-foreground text-sm lg:text-base",
+                  )}
+                >
+                  {
+                    options.find((option) => option.id === selectedOption)
+                      ?.explanation
+                  }
+                </p>
+              </div>
+            )}
           </div>
         </div>
       </div>

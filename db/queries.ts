@@ -82,6 +82,23 @@ export const getUnits = cache(async () => {
   return normalizedData
 })
 
+export const getLessonsFromUnit = cache(async (params: { contentTitle: string }) => {
+  const { userId } = await auth()
+  const userProgress = await getUserProgress()
+
+  if (!userId || !userProgress?.activeCourseId) {
+    return []
+  }
+
+  const units = getUnits()
+  const unit = (await units).find(
+    (unit: { title: any }) => unit.title === params.contentTitle
+  )
+  const lessons = unit!.lessons.map((lesson) => lesson.title)
+
+  return lessons
+})
+
 export const getCourses = cache(async () => {
   const data = await db.query.courses.findMany()
 
