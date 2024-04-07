@@ -1,9 +1,9 @@
-"use client"
+'use client'
 
+import React, { useRef, useState } from "react"
 import { Button } from "@/components/ui/button"
 import { ArrowLeft } from "lucide-react"
 import Link from "next/link"
-import { useState } from "react"
 
 type Props = {
   courseName: string | undefined
@@ -15,11 +15,19 @@ type Props = {
 const Content = ({ courseName, unitName, lessonNames, contents }: Props) => {
   const [topic, setTopic] = useState<string>(lessonNames[0])
   const [lessonContent, setLessonContent] = useState<string | null>(contents[0])
+  const contentRef = useRef<HTMLDivElement>(null)
 
   const handleClick = (index: number) => {
     setTopic(lessonNames[index])
     setLessonContent(contents[index])
   }
+
+  // Update the content whenever lessonContent changes
+  React.useEffect(() => {
+    if (contentRef.current && lessonContent) {
+      contentRef.current.innerHTML = lessonContent
+    }
+  }, [lessonContent])
 
   return (
     <div>
@@ -46,13 +54,18 @@ const Content = ({ courseName, unitName, lessonNames, contents }: Props) => {
           </Button>
         ))}
       </div>
+      <style jsx global>{`
+        .lesson-content .bg-card:hover {
+          --tw-bg-opacity: 1;
+          background-color: rgb(199 210 254 / var(--tw-bg-opacity));
+        }
+      `}</style>
       <div className="lg:px-[256px] h-full pt-[25px] lg:pt-0">
-        <div className="max-w-[1056px] mx-auto lg:pt-6 h-full">
-          {(
-            <div
-              dangerouslySetInnerHTML={{ __html: lessonContent! }}
-            />
-          ) || "Select a lesson to view its content."}
+        <div
+          className="max-w-[1056px] mx-auto lg:pt-6 h-full lesson-content"
+          ref={contentRef}
+        >
+          {!lessonContent && "Select a lesson to view its content."}
         </div>
       </div>
     </div>
